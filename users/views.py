@@ -67,7 +67,6 @@ class ProfileView(APIView): # 프로필 화면 뷰
 
 
 state = os.environ.get("STATE")
-print(state)
 BASE_URL = 'http://localhost:8000/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'users/google/callback/'
 
@@ -156,7 +155,7 @@ def github_callback(request):
     client_id = os.environ.get('SOCIAL_AUTH_GITHUB_CLIENT_ID')
     client_secret = os.environ.get('SOCIAL_AUTH_GITHUB_SECRET')
     code = request.GET.get('code')
-    print(code)
+
     # print (str(code))
     """
     Access Token Request
@@ -174,11 +173,11 @@ def github_callback(request):
     user_req = requests.get(f"https://api.github.com/user",
                             headers={"Authorization": f"Bearer {access_token}"})
     user_json = user_req.json()
-    # print(user_json, "######")
+
     error = user_json.get("error")
     if error is not None:
         raise JSONDecodeError(error)
-    # print(user_json)
+
     email = user_json.get("email")
     """
     Signup or Signin Request
